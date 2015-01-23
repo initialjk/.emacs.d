@@ -38,3 +38,9 @@
 
 (require `find-file-in-repository)
 (global-set-key (kbd "C-x f") 'find-file-in-repository)
+
+(color-theme-initialize)
+(color-theme-charcoal-black)
+
+(add-to-list 'default-frame-alist '(font . "Consolas-12" ))
+(set-face-attribute 'default t :font "Consolas-12" )
