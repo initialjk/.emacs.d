@@ -111,10 +111,12 @@
   user's $HOME directory as a valid repository when it
   contains a .git/.hg/_darcs/(...) file.")
 
+(setq find-file-patterns '())
+
 (defvar ffir-repository-types
   `((".git"   . ,(lambda (dir)
                    (ffir-shell-command
-                    "git ls-files -zco --exclude-standard"     "\0" dir)))
+		    (format "git ls-files -zco --exclude-standard -- %s" (mapconcat 'identity find-file-patterns " ")) "\0" dir)))
     (".hg"    . ,(lambda (dir)
                    (ffir-shell-command "hg locate -0"          "\0" dir)))
     ("_darcs" . ,(lambda (dir)
