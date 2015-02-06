@@ -1,17 +1,52 @@
 (add-to-list 'load-path "~/.emacs.d/lisp/")
 (add-to-list 'load-path "~/.emacs.d/lisp/ecb/")
 
-(setq backup-directory-alist '(("." . "~/.saves")))
+(setq backup-directory-alist '((".*" . "~/.saves")))
 (setq backup-by-copying t)
+(setq auto-save-file-name-transforms '((".*" "~/.saves" t)))
+
 (setq delete-old-versions t
   kept-new-versions 6
   kept-old-versions 2
   version-control t)
 
-;; (setq tab-width 4)
+(setq tab-width 4)
+(setq indent-tabs-mode nil)
+(setq c-basic-offset 4)
+(setq fill-column 120)
 
 (setq mac-option-modifier 'meta)
 (setq mac-command-modifier 'meta)
+
+(c-add-style "WebKit" '("Google" 
+                        (c-basic-offset . 4)
+                        (c-offsets-alist . ((innamespace . 0)
+                                            (access-label . -)
+                                            (case-label . 0)
+                                            (member-init-intro . +)
+                                            (topmost-intro . 0)))))
+
+
+(defun cc-other-file()
+  "Toggles source/header file"
+  (interactive)
+  (let ((buf (current-buffer))
+        (name (file-name-sans-extension (buffer-file-name)))
+        (other-extens 
+         (cadr (assoc (concat "\\." 
+                              (file-name-extension (buffer-file-name))
+                              "\\'") 
+                      cc-other-file-alist))))
+    (dolist (e other-extens)
+      (if (let ((f (concat name e)))
+            (and (file-exists-p f) (find-file f)))
+          (return)))
+    )
+  )
+(global-set-key (kbd "M-o") 'cc-other-file)
+
+(add-hook 'c-mode-common-hook (function (lambda () (local-set-key (kbd "TAB") 'clang-format-region))))
+
 
 (custom-set-variables
  '(ecb-layout-name "left14")
@@ -38,6 +73,11 @@
 (global-set-key (kbd "C-x C-f") 'helm-find-files)
 (global-set-key (kbd "C-x f") 'helm-locate)
 (global-set-key (kbd "C-x C-B") 'helm-mini)
+
+(define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action) ; rebind tab to do persistent action
+(define-key helm-map (kbd "C-i") 'helm-execute-persistent-action) ; make TAB works in terminal
+(define-key helm-map (kbd "C-z")  'helm-select-action) ; list actions using C-z
+
 
 (require 'ecb-autoloads)
 
