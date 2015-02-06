@@ -43,7 +43,7 @@
           (return)))
     )
   )
-(global-set-key (kbd "M-o") 'cc-other-file)
+(global-set-key (kbd "M-o") 'ff-get-other-file)
 
 (add-hook 'c-mode-common-hook (function (lambda () (local-set-key (kbd "TAB") 'clang-format-region))))
 
@@ -68,10 +68,16 @@
 
 (require 'helm-config)
 (global-set-key (kbd "M-x") 'helm-M-x)
-(helm-mode 1)
-(helm-autoresize-mode 1)
+(helm-mode t)
+(setq helm-autoresize-max-height 50)
+(setq helm-autoresize-min-height 50)
+(helm-autoresize-mode t)
+
 (global-set-key (kbd "C-x C-f") 'helm-find-files)
 (global-set-key (kbd "C-x f") 'helm-locate)
+
+
+(setq helm-buffers-fuzzy-matching t helm-recentf-fuzzy-match t)
 (global-set-key (kbd "C-x C-B") 'helm-mini)
 
 (define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action) ; rebind tab to do persistent action
