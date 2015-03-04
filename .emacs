@@ -10,10 +10,15 @@
   kept-old-versions 2
   version-control t)
 
-(setq tab-width 4)
-(setq indent-tabs-mode nil)
+(setq inhibit-startup-screen t)
+(setq inhibit-splash-screen t)
+
+(setq-default indent-tabs-mode nil)
+(setq-default tab-width 4)
+(setq indent-line-function 'insert-tab)
+
 (setq c-basic-offset 4)
-(setq fill-column 120)
+(setq fill-column 160)
 
 (setq mac-option-modifier 'meta)
 (setq mac-command-modifier 'meta)
@@ -45,8 +50,8 @@
   )
 (global-set-key (kbd "M-o") 'ff-get-other-file)
 
-(add-hook 'c-mode-common-hook (function (lambda () (local-set-key (kbd "TAB") 'clang-format-region))))
-
+;;(require 'clang-format)
+;;(add-hook 'c-mode-common-hook (function (lambda () (local-set-key (kbd "TAB") 'clang-format-region))))
 
 (custom-set-variables
  '(ecb-layout-name "left14")
@@ -82,23 +87,12 @@
 
 (define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action) ; rebind tab to do persistent action
 (define-key helm-map (kbd "C-i") 'helm-execute-persistent-action) ; make TAB works in terminal
-(define-key helm-map (kbd "C-z")  'helm-select-action) ; list actions using C-z
+(define-key helm-map (kbd "C-z") 'helm-select-action) ; list actions using C-z
 
 
 (require 'ecb-autoloads)
 
 (require 'ido)
 (ido-mode t)
-
-;;(require 'find-file-in-repository)
-;;(global-set-key (kbd "C-x f") 'find-file-in-repository)
-;;(global-set-key (kbd "C-,") 'find-file-in-repository)
-;;(add-to-list 'find-file-patterns "*.h")
-;;(add-to-list 'find-file-patterns "*.hpp")
-;;(add-to-list 'find-file-patterns "*.c")
-;;(add-to-list 'find-file-patterns "*.cc")
-;;(add-to-list 'find-file-patterns "*.cpp")
-;;(add-to-list 'find-file-patterns "*.gyp")
-;;(add-to-list 'find-file-patterns "*.gypi")
 
 (require 'gyp)
