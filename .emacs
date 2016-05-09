@@ -74,9 +74,11 @@
 (require 'helm-config)
 (global-set-key (kbd "M-x") 'helm-M-x)
 (helm-mode t)
-(setq helm-autoresize-max-height 50)
-(setq helm-autoresize-min-height 50)
+(setq helm-autoresize-max-height 30)
+(setq helm-autoresize-min-height 30)
 (helm-autoresize-mode t)
+
+(set-face-attribute 'helm-selection nil :background "#060606")
 
 (global-set-key (kbd "C-x C-f") 'helm-find-files)
 (global-set-key (kbd "C-x f") 'helm-locate)
