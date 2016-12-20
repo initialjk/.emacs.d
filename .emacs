@@ -23,15 +23,6 @@
 (setq mac-option-modifier 'meta)
 (setq mac-command-modifier 'meta)
 
-(c-add-style "WebKit" '("Google" 
-                        (c-basic-offset . 4)
-                        (c-offsets-alist . ((innamespace . 0)
-                                            (access-label . -)
-                                            (case-label . 0)
-                                            (member-init-intro . +)
-                                            (topmost-intro . 0)))))
-
-
 (defun cc-other-file()
   "Toggles source/header file"
   (interactive)
